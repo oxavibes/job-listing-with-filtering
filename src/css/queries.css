@@ -1,0 +1,16 @@
+/* tablet: from 769px */
+@media only screen and (max-width: 48em) {
+  
+}
+
+/* mdesktop: from 1024px */
+@media only screen and (max-width: 64em) {
+}
+
+/* widescreen: from 1216px */
+@media only screen and (max-width: 76em) {
+}
+
+/* fullhd: from 1408px */
+@media only screen and (min-width: 88em) {
+}
