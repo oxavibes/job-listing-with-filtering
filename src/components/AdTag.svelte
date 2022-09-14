@@ -2,32 +2,39 @@
 	import removeIcon from '/src/images/icon-remove.svg';
 
 	export let title = 'default title';
+	export let closable = false;
 </script>
 
 <div class="tag">
-	<span href="#" class="tag__title"> {title} </span>
-	<button class="tag__button">
-		<img class="tag__icon" src={removeIcon} alt="remove chip icon" />
-	</button>
+	<span class="tag__title"> {title} </span>
+	{#if closable}
+		<button v-if="" class="tag__button">
+			<img class="tag__icon" src={removeIcon} alt="remove chip icon" />
+		</button>
+	{/if}
 </div>
 
 <style>
 	.tag {
 		display: flex;
+		overflow: hidden;
+		border-radius: 2px;
 		color: var(--primary-color);
 	}
 
 	.tag__title {
-		margin-top: auto;
-		margin-bottom: auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
 		font-size: 1rem;
 		padding: 0px 6px;
 		font-weight: 700;
 		text-transform: uppercase;
 		background-color: #f2f2f2;
-		border-top-left-radius: 3px;
-		border-bottom-left-radius: 3px;
-		border: 1px solid var(--primary-color);
+		/* background-color: violet; */
+
+		/* border: 1px solid var(--primary-color); */
 	}
 
 	.tag__button {
