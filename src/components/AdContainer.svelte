@@ -1,6 +1,6 @@
 <script>
 	import Ad from './Ad.svelte';
-  
+
 	export let ads = [];
 </script>
 
@@ -11,6 +11,7 @@
 </div>
 
 <style>
+
 	.ads {
 		gap: 4.5rem;
 		display: flex;

@@ -1,13 +1,17 @@
 <script>
+	import dayjs from 'dayjs';
+	import relativeTime from 'dayjs/plugin/relativeTime';
+
+	dayjs.extend(relativeTime);
+
 	import AdTag from './AdTag.svelte';
 
-	//This is how you pass props in Svelte into a component
 	export let logo,
 		company,
 		position,
 		role,
 		level,
-		postedAt,
+		updated,
 		contract,
 		location,
 		isNew,
@@ -15,7 +19,7 @@
 		languages;
 </script>
 
-<div class="ad">
+<div class="ad" class:ad__featured="{isFeatured}">
 	<img class="ad__logo" width="88" height="88" src={logo} alt="Company logo" />
 	<div class="ad__details">
 		<div class="ad__details-header">
@@ -29,12 +33,14 @@
 		</div>
 		<h2>{position}</h2>
 		<ul>
-			<li>{postedAt}</li>
+			<li>{dayjs().to(updated)}</li>
 			<li>{contract}</li>
 			<li>{location}</li>
 		</ul>
 	</div>
 	<div class="ad__tags">
+		<AdTag title={role} />
+		<AdTag title={level} />
 		{#each languages as language}
 			<AdTag title={language} />
 		{/each}
@@ -47,10 +53,13 @@
 		background: white;
 		border-radius: 6px;
 		padding: 3.5rem 2rem 2rem 2rem;
-		border-left: 5px solid var(--primary-color);
 		box-shadow: var(--box-shadow);
 		position: relative;
 		font-family: inherit;
+	}
+
+	.ad__featured {
+		border-left: 5px solid var(--primary-color);
 	}
 
 	.ad__logo {

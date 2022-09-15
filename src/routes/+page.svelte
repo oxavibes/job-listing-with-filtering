@@ -1,26 +1,41 @@
 <script>
+	import PocketBase from 'pocketbase';
+
 	import AdContainer from '../components/AdContainer.svelte';
 	import AdTagSearcher from '../components/AdTagSearcher.svelte';
 
-	import logo from '/src/images/photosnap.svg';
+	const client = new PocketBase('http://127.0.0.1:8090');
 
-	const tags = ['Html', 'Css', 'Javascript'];
+	let page = 1;
+	let perPage = 30;
 
-	const ads = [
-		{
-			logo: logo,
-			company: 'Photosnap',
-			position: 'Senior Frontend Developer',
-			role: 'Frontend',
-			level: 'Senior',
-			postedAt: '1d ago',
-			contract: 'Full Time',
-			location: 'USA Only',
-			languages: ['HTML', 'CSS', 'JavaScript'],
-			isNew: true,
-			isFeatured: true
+	let tags = [];
+
+	const extractAd = (ad) => {
+		return {
+			logo: ad.logo,
+			company: ad.company,
+			position: ad.position,
+			role: ad.role,
+			level: ad.level,
+			contract: ad.contract,
+			location: ad.location,
+			isNew: ad.new,
+			isFeatured: ad.featured,
+			updated: ad.updated,
+			languages: ad.languages.languages
+		};
+	};
+
+	const getAds = async () => {
+		try {
+			const { items } = await client.records.getList('jobs', page, perPage);
+
+			return items.map(extractAd);
+		} catch (error) {
+			throw new Error(error);
 		}
-	];
+	};
 </script>
 
 <svelte:head>
@@ -33,7 +48,11 @@
 <section class="content">
 	<AdTagSearcher {tags} />
 
-	<AdContainer {ads} />
+	{#await getAds()}
+		<span>Waiting...</span>
+	{:then ads}
+		<AdContainer {ads} />
+	{/await}
 </section>
 
 <style>
@@ -47,6 +66,7 @@
 	.content {
 		margin: 0 2rem;
 		flex-direction: column;
+		padding-bottom: 2rem;
 	}
 
 	@media only screen and (min-width: 968px) {
