@@ -1,10 +1,11 @@
 <script>
+	import variables from '$lib/variables';
 	import PocketBase from 'pocketbase';
 
 	import AdContainer from '../components/AdContainer.svelte';
 	import AdTagSearcher from '../components/AdTagSearcher.svelte';
 
-	const client = new PocketBase('http://127.0.0.1:8090');
+	const client = new PocketBase(variables.pocketBaseClient);
 
 	let page = 1;
 	let perPage = 30;
