@@ -1,18 +1,34 @@
 <script>
-	import variables from '$lib/variables';
-	import PocketBase from 'pocketbase';
+	import { onMount } from 'svelte';
+	import jobAds from '$lib/data/db.json';
 
 	import AdContainer from '../components/AdContainer.svelte';
 	import AdTagSearcher from '../components/AdTagSearcher.svelte';
 
-	const client = new PocketBase(variables.pocketBaseClient);
-
-	let page = 1;
-	let perPage = 30;
-
+	let ads = [];
 	let tags = [];
+	let roles = [];
+	let levels = [];
+	let languages = [];
+	let frameworks = [];
+	let selectedTags = [];
 
-	const extractAd = (ad) => {
+	//Computed properties equivalent in Vue.js
+	$: filteredAds = selectedTags
+		? ads.filter((ad) =>
+				selectedTags.every((tag) => {
+					if (tag.group == 'languages' || tag.group === 'frameworks') {
+						return ad[tag.group].includes(tag.value);
+					} else {
+						return ad[tag.group] === tag.value;
+					}
+				})
+		  )
+		: ads;
+
+	function extractAd(ad) {
+		extractTags(ad);
+
 		return {
 			logo: ad.logo,
 			company: ad.company,
@@ -24,36 +40,48 @@
 			isNew: ad.new,
 			isFeatured: ad.featured,
 			updated: ad.updated,
-			languages: ad.languages.languages
+			languages: ad.languages,
+			frameworks: ad.frameworks
 		};
-	};
+	}
 
-	const getAds = async () => {
-		try {
-			const { items } = await client.records.getList('jobs', page, perPage);
+	function createSelectElements(arr, group) {
+		return arr.map((item) => ({ value: item, label: item, group: group }));
+	}
 
-			return items.map(extractAd);
-		} catch (error) {
-			throw new Error(error);
-		}
-	};
+	function extractTags(ad) {
+		roles = [...new Set([...roles, ad.role])];
+		levels = [...new Set([...levels, ad.level])];
+		languages = [...new Set([...languages, ...ad.languages])];
+		frameworks = [...new Set([...frameworks, ...ad.frameworks])];
+	}
+
+	function formatTags() {
+		return [
+			...createSelectElements(roles, 'role'),
+			...createSelectElements(levels, 'level'),
+			...createSelectElements(languages, 'languages'),
+			...createSelectElements(frameworks, 'frameworks')
+		];
+	}
+
+	onMount(() => {
+		ads = jobAds.map(extractAd);
+		tags = formatTags();
+	});
 </script>
 
 <svelte:head>
-	<link rel="stylesheet" href="/src/css/app.css" />
 	<link rel="stylesheet" href="/src/css/reset.css" />
+	<link rel="stylesheet" href="/src/css/app.css" />
+	<link rel="stylesheet" href="/src/css/queries.css" />
 </svelte:head>
 
 <header class="header" />
-
 <section class="content">
-	<AdTagSearcher {tags} />
+	<AdTagSearcher bind:tags bind:selectedTags />
 
-	{#await getAds()}
-		<span>Waiting...</span>
-	{:then ads}
-		<AdContainer {ads} />
-	{/await}
+	<AdContainer ads={filteredAds} />
 </section>
 
 <style>
@@ -73,7 +101,7 @@
 	@media only screen and (min-width: 968px) {
 		.content {
 			margin: 0 auto;
-			max-width: 96rem;
+			max-width: 968px;
 		}
 	}
 </style>
