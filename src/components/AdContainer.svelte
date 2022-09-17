@@ -11,7 +11,6 @@
 </div>
 
 <style>
-
 	.ads {
 		gap: 4.5rem;
 		display: flex;

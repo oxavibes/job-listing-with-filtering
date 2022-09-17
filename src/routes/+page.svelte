@@ -11,7 +11,7 @@
 	let levels = [];
 	let languages = [];
 	let frameworks = [];
-	let selectedTags = [];
+	let selectedTags = null;
 
 	//Computed properties equivalent in Vue.js
 	$: filteredAds = selectedTags
