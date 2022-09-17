@@ -71,12 +71,6 @@
 	});
 </script>
 
-<svelte:head>
-	<link rel="stylesheet" href="/src/css/reset.css" />
-	<link rel="stylesheet" href="/src/css/app.css" />
-	<link rel="stylesheet" href="/src/css/queries.css" />
-</svelte:head>
-
 <header class="header" />
 <section class="content">
 	<AdTagSearcher bind:tags bind:selectedTags />
