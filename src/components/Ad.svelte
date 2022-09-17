@@ -16,10 +16,11 @@
 		location,
 		isNew,
 		isFeatured,
-		languages;
+		languages,
+		frameworks;
 </script>
 
-<div class="ad" class:ad__featured="{isFeatured}">
+<div class="ad" class:ad__featured={isFeatured}>
 	<img class="ad__logo" width="88" height="88" src={logo} alt="Company logo" />
 	<div class="ad__details">
 		<div class="ad__details-header">
@@ -41,8 +42,13 @@
 	<div class="ad__tags">
 		<AdTag title={role} />
 		<AdTag title={level} />
+
 		{#each languages as language}
 			<AdTag title={language} />
+		{/each}
+
+		{#each frameworks as framework}
+			<AdTag title={framework} />
 		{/each}
 	</div>
 </div>
@@ -111,6 +117,7 @@
 	}
 
 	.ad__chip {
+		font-size: 1rem;
 		color: white;
 		padding: 4px 8px 2px 8px;
 		font-weight: 700;
@@ -141,9 +148,10 @@
 		gap: 1rem;
 		display: flex;
 		flex-wrap: wrap;
+		flex: 2;
 	}
 
-	@media only screen and (min-width: 38em) {
+	@media only screen and (min-width: 44em) {
 		.ad {
 			padding: 2rem;
 			display: flex;
@@ -173,34 +181,4 @@
 			justify-content: flex-end;
 		}
 	}
-
-	/* @media only screen and (min-width: 48em) {
-		.ad {
-			padding: 2rem;
-			display: flex;
-			align-items: center;
-		}
-		.ad__logo {
-			top: 0;
-			width: 70px;
-			height: 70px;
-			position: relative;
-			margin-right: 2rem;
-		}
-
-		.ad__details {
-			border-bottom: 0;
-		}
-
-		.ad__details,
-		.ad__details h2,
-		.ad__details-header,
-		.ad__details ul {
-			margin-bottom: 3px;
-		}
-
-		.ad__tags {
-			margin-left: auto;
-		}
-	} */
 </style>
