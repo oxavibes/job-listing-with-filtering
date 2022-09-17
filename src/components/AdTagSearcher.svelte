@@ -1,60 +1,39 @@
 <script>
-	import AdTag from './AdTag.svelte';
+	import Select from 'svelte-select';
 
 	export let tags = [];
+	export let selectedTags = null;
+
+	const groupBy = (item) => item.group;
 </script>
 
 <div class="tags">
-	<div class="tags__container">
-		{#each tags as tag}
-			<AdTag title={tag} closable />
-		{/each}
+	<div class="themed">
+		<Select isMulti={true} {groupBy} items={tags} bind:value={selectedTags} />
 	</div>
-
-	<button class="tags__button">Clear</button>
 </div>
 
 <style>
 	.tags {
-		display: flex;
 		position: relative;
 		border-radius: 6px;
 		padding: 1.5rem;
-		box-shadow: var(--box-shadow);
 		background-color: var(--light-cyan-bg);
 		top: -25px;
 		margin-bottom: 2rem;
+		box-shadow: var(--box-shadow);
 	}
 
-	.tags__container {
-		display: flex;
-		flex-wrap: wrap;
-		margin-right: auto;
-		gap: 0.5rem;
+	.themed {
+		--borderRadius: 8px;
+		--borderFocusColor: #5ba4a4;
+		--itemHoverColor: white;
+		--itemHoverBG: var(--primary-color);
 	}
 
-	.tags__button {
-		align-self: center;
-		margin-left: 5px;
-		background-color: transparent;
-		color: var(--dark-grayish-cyan);
-	}
-
-	.tags__button:focus,
-	.tags__button:hover {
-		color: var(--primary-color);
-		text-decoration: underline;
-	}
-
-	@media only screen and (min-width: 38em) {
+	@media only screen and (min-width: 44em) {
 		.tags {
 			margin-bottom: 0;
-		}
-	}
-
-	@media only screen and (min-width: 48em) {
-		.tags__container {
-			gap: 1rem;
 		}
 	}
 </style>
