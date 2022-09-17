@@ -1,6 +1,4 @@
 <script>
-	import removeIcon from '/src/images/icon-remove.svg';
-
 	export let title = 'default title';
 </script>
 
