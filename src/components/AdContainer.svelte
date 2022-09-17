@@ -18,7 +18,7 @@
 		flex-wrap: wrap;
 	}
 
-	@media only screen and (min-width: 38em) {
+	@media only screen and (min-width: 44em) {
 		.ads {
 			gap: 2rem;
 		}

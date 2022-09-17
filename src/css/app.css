@@ -1,39 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;500;700&display=swap');
 
 :root {
-  --ad-border: 5px solid #63BABA;
-  --primary-color: hsl(180, 29%, 50%);
+	--ad-border: 5px solid #63baba;
+	--primary-color: hsl(180, 29%, 50%);
 
-  --light-cyan-bg: hsl(180, 52%, 96%);
-  --light-cyan-tablet: hsl(180, 31%, 95%);
+	--light-cyan-bg: hsl(180, 52%, 96%);
+	--light-cyan-tablet: hsl(180, 31%, 95%);
 
-  --dark-grayish-cyan: hsl(180, 8%, 52%);
-  --v-dark-grayish-cyan: rgb(44, 58, 58);
+	--dark-grayish-cyan: hsl(180, 8%, 52%);
+	--v-dark-grayish-cyan: rgb(44, 58, 58);
 
-  --box-shadow: 0px 5px 10px rgba(0, 0, 0, .15);
+	--box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
 
-  --container-width: 96em;
+	--container-width: 96em;
 }
 
 html {
-  font-size: 62.5%;
-  box-sizing: inherit;
+	font-size: 62.5%;
+	box-sizing: inherit;
 }
 
 body {
-  height: 100vh;
-  line-height: 1.4;
-  background-color: var(--light-cyan-bg);
-  font-family: 'League Spartan', sans-serif;
+	height: 100vh;
+	line-height: 1.4;
+	background-color: var(--light-cyan-bg);
+	font-family: 'League Spartan', sans-serif;
+	font-size: 1.2rem;
 }
 
 button {
-  border: none;
-  cursor: pointer;
-  display: inline-block;
+	border: none;
+	cursor: pointer;
+	display: inline-block;
 }
 
 a {
-  display: inline-block;
-  text-decoration: none;
+	display: inline-block;
+	text-decoration: none;
 }
+
+@media only screen and (min-width: 1296px) {
+	body {
+		font-size: 1.4rem;
+	}
+}
+
