@@ -71,12 +71,16 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Front end Mentor - Job listing with filtering.</title>
+</svelte:head>
+
 <header class="header" />
-<section class="content">
+<main class="content">
 	<AdTagSearcher bind:tags bind:selectedTags />
 
 	<AdContainer ads={filteredAds} />
-</section>
+</main>
 
 <style>
 	.header {
