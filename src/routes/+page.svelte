@@ -75,7 +75,9 @@
 	<title>Front end Mentor - Job listing with filtering.</title>
 </svelte:head>
 
-<header class="header" />
+<header class="header">
+	<h1>Job listing with filtering</h1>
+</header>
 <main class="content">
 	<AdTagSearcher bind:tags bind:selectedTags />
 
@@ -84,12 +86,24 @@
 
 <style>
 	.header {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		height: 156px;
 		max-height: 156px;
 		position: relative;
 		background-color: var(--primary-color);
 		background-image: url(../images/bg-header-desktop.svg);
 	}
+
+	.header h1 {
+		color: white;
+		font-weight: 700;
+		font-family: inherit;
+		letter-spacing: 1px;
+		visibility: hidden;
+	}
+
 	.content {
 		margin: 0 2rem;
 		flex-direction: column;
